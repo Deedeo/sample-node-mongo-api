@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+    nodejs-app:
+        build:
+          context: ./nodeapp
+        container_name: nodeapp
+        hostname: nodejsserver
+        ports:
+            - "5555:5555" 
+        networks:
+            - example-net  
+    nginx:
+        build:
+          context: ./nginx
+        container_name: nginx
+        hostname: nginx
+        ports:
+            - "80:80" 
+        depends_on:
+            - nodejs-app
+        networks:
+            - example-net
+
+networks:
+  example-net:
+    
